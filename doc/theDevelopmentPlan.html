@@ -1,0 +1,802 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>The Development Plan</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ce89af90-1529-411a-bd08-e58aba8ef538" class="page serif"><header><img class="page-cover-image" src="The%20Development%20Plan%20ce89af901529411abd08e58aba8ef538/B033154D-9BF7-42C7-89FB-80BBDF1EC5D1.jpeg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">📲</span></div><h1 class="page-title">The Development Plan</h1></header><div class="page-body"><h1 id="2006c5cc-b5b6-41bc-9d54-4fd6f67f8d5f" class="">A Web-Application for Boars Head Training Department</h1><hr id="d8544aab-56ee-4e12-b199-dc4a8490dd8e"/><p id="e300dba4-7a98-45ff-8e27-05334958b2c8" class=""><mark class="highlight-gray"><span style="border-bottom:0.05em solid"><em>Table of Contents</em></span></mark></p><nav id="80f07039-24af-4f8d-9f15-f4ad55c61eb0" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2006c5cc-b5b6-41bc-9d54-4fd6f67f8d5f">A Web-Application for Boars Head Training Department</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#47fae000-b521-4160-aa10-e34a888961e1">📊Project to create a web-based application for Boars Head Deli Distributions&#x27; training department.<mark class="highlight-gray"> </mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4a38c3d3-92d0-49d1-b21b-a4df02f8a369"><em><strong><span style="border-bottom:0.05em solid">Recommended tech stack:</span></strong></em></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d0c03ab-c23d-4c96-9bbc-6c22faff128c">🎯 Roadmap — In-depth development plan and timeline for the project</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#133bb4ee-5f79-4682-bf65-56a12803761a">🎯Week 1 — Targeted Goals</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a817749b-71b2-4478-96f1-f33765c9e2aa">🎯Week 2 — Targeted Goals</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cfa0f582-ebc8-47a9-9687-32d67038ff6d">📚Development Resources</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a6600a48-74b0-498d-a10d-2764a576c0ff">📖 Here are some popular libraries and templates you can use:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3f0d4ce8-8fa5-4dac-b9fb-f66512b969f3">📙 Resources by<strong> Timeline</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8ad501a2-0e0f-4f42-b410-3a72911ad892">📗<strong>Resource URLs (Reference)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fbe37999-edbb-4a1e-8809-af6a5f893f1e">✅Task list for developers broken down by role… </a></div></nav><hr id="a984b2d6-7f77-4b76-b96b-efcd9842b200"/><h1 id="47fae000-b521-4160-aa10-e34a888961e1" class="">📊Project to create a web-based application for Boars Head Deli Distributions&#x27; training department.<mark class="highlight-gray"> </mark></h1><h3 id="4a38c3d3-92d0-49d1-b21b-a4df02f8a369" class=""><details open=""><summary><em><strong><span style="border-bottom:0.05em solid">Recommended tech stack:</span></strong></em></summary></details></h3><div class="indented"><ol type="1" id="8bc6a237-fcf8-4157-a0ac-1e1bcf3e2e56" class="numbered-list" start="1"><li>Frontend: React or Angular
+Both React and Angular are popular frontend libraries/frameworks that allow you to create scalable and maintainable web applications. React is more lightweight and flexible, while Angular is a full-fledged framework with built-in features. Both have strong communities and extensive resources available for learning and development.</li></ol><ol type="1" id="345238ba-0975-4bc2-b95b-6ca0818416e2" class="numbered-list" start="2"><li>Backend: Node.js with Express
+Node.js is a popular choice for creating scalable backend applications. By using Express, a minimalist web framework for Node.js, you can easily develop RESTful APIs to handle your application&#x27;s data. It has a large community and numerous packages to help you implement various functionalities.</li></ol><ol type="1" id="18df39e5-7065-4b63-beac-39be8f6af127" class="numbered-list" start="3"><li>Database: MongoDB or PostgreSQL
+Choose a database system depending on your data requirements. MongoDB is a NoSQL database that is highly scalable, flexible, and great for handling JSON-like documents. PostgreSQL is a powerful, open-source object-relational database system with excellent performance, reliability, and robustness.</li></ol><ol type="1" id="85bdb9e0-ca1f-4720-8c3e-674862c87ee4" class="numbered-list" start="4"><li>User Authentication: Firebase Authentication or Auth0
+Firebase Authentication and Auth0 are two popular authentication providers that offer easy-to-implement user authentication and management. They support various login methods such as email/password, social media logins, and Single Sign-On (SSO). Both can be easily integrated with your chosen frontend and backend technologies.</li></ol><ol type="1" id="6a3a2df5-d79c-46ae-a4f5-dbbf42a08db3" class="numbered-list" start="5"><li>Deployment and Hosting: AWS, Google Cloud Platform, or Heroku
+For deployment and hosting, consider using cloud platforms like AWS, Google Cloud Platform, or Heroku. They offer various services to manage, scale, and monitor your application while ensuring reliability and security.<p id="469d62ff-4fbc-41c8-a052-3f2ab59270ea" class="">Remember to keep your application modular and follow best practices to ensure scalability and maintainability as your project grows. With this tech stack, you should be able to create a robust web application to manage Boars Head Deli Distributions&#x27; training records for Publix deli employees.</p></li></ol></div><hr id="badb008b-0152-4a0a-8239-896c198fea58"/><figure id="5df4f3e5-d740-4d05-ac44-6a0a5a632604" class="image"><a href="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"><img src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"/></a></figure><h3 id="6d0c03ab-c23d-4c96-9bbc-6c22faff128c" class=""><details open=""><summary>🎯 Roadmap — In-depth development plan and timeline for the project</summary></details></h3><div class="indented"><pre id="7c3dce21-e8e2-4cdd-b707-e84ce85cd553" class="code code-wrap"><code># Boars Head Deli Distributions Training Records Application
+
+## Development Plan and Timeline
+
+### Week 1: Project setup and planning
+- Set up the development environment
+- Choose frontend and backend frameworks (React, Node.js with Express)
+- Choose a database system (MongoDB or PostgreSQL)
+- Plan application architecture and data models
+
+### Week 2: Frontend development (React or Angular)
+- Design application UI/UX
+- Implement core components and views
+- Login and registration
+- Dashboard
+- Employee management
+- Training management
+
+### Week 3: Backend development (Node.js with Express)
+- Set up the database and schema
+- Implement RESTful API endpoints
+- User authentication and authorization
+- CRUD operations for employees and trainings
+- Connect frontend with backend API
+
+### Week 4: User authentication (Firebase Authentication or Auth0)
+- Integrate user authentication provider
+- Implement login and registration functionality
+- Set up role-based access control
+
+### Week 5: Testing and bug fixing
+- Perform unit and integration tests
+- Fix any identified bugs
+- Optimize application performance
+
+### Week 6: Deployment (AWS, Google Cloud Platform, or Heroku)
+- Set up the deployment environment
+- Deploy the frontend and backend applications
+- Configure the database and test connectivity
+- Set up monitoring and logging
+
+### Week 7: Documentation and final touches
+- Write comprehensive user and developer documentation
+- Perform end-to-end testing
+- Implement any final UI/UX improvements
+
+### Week 8: Launch and post-launch support
+- Launch the application
+- Monitor application performance and usage
+- Provide post-launch support and bug fixes
+</code></pre><p id="6d0e3085-d014-4701-9dcd-5388e804d2cc" class="">This is an eight-week development plan and timeline. </p></div><hr id="47321399-beca-4e90-ab86-5d7364c77fef"/><figure id="f8c5ba3f-6fed-4085-b2da-5c011b263488" class="image"><a href="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"><img src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"/></a></figure><h3 id="133bb4ee-5f79-4682-bf65-56a12803761a" class=""><details open=""><summary>🎯Week 1 — Targeted Goals</summary></details></h3><div class="indented"><pre id="a025f963-efdc-44cf-bc1b-d24a3c593585" class="code code-wrap"><code>
+# Week 1: Project Setup and Planning
+
+## Day 1: Set Up the Development Environment
+- Install Node.js and npm
+- Install a frontend framework (React or Angular)
+- Set up a backend framework (Express)
+- Install and configure a code editor (e.g., Visual Studio Code)
+
+## Day 2: Choose Frameworks and Database System
+- Research and finalize the choice of frontend framework (React or Angular)
+- Research and finalize the choice of backend framework (Node.js with Express)
+- Research and finalize the choice of database system (MongoDB or PostgreSQL)
+
+## Day 3: Plan Application Architecture
+- Design the frontend component hierarchy
+- Plan the backend API endpoints
+- Identify common libraries and packages to use
+
+## Day 4: Design Data Models and Schema
+- Define the employee data model
+- Define the training data model
+- Design the database schema
+
+## Day 5: Set Up Version Control and Project Management
+- Set up a Git repository and commit the initial project structure
+- Choose a project management tool (e.g., Trello, Asana, Jira)
+- Create tasks and milestones based on the development timeline
+
+## Day 6: Plan User Authentication and Authorization
+- Research and finalize the user authentication provider (Firebase Authentication or Auth0)
+- Plan the implementation of role-based access control
+
+## Day 7: Review and Refine the Plan
+- Review the development plan and timeline
+- Refine any aspects based on feedback or new information
+- Prepare for Week 2 (Frontend Development)</code></pre><figure id="68ff9642-61cb-4b96-8d61-77da2c9f25d4" class="image"><a href="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"><img src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"/></a></figure></div><p id="933ad52e-cd5e-4c61-87d5-ee2dd6a98256" class="">This detailed breakdown of Week 1 should help you better understand the tasks and milestones for each day. Adjust the timeline as needed based on your team&#x27;s capacity and resources.</p><hr id="9a041991-bd51-41a1-aefd-04eb15e4c7b4"/><h3 id="a817749b-71b2-4478-96f1-f33765c9e2aa" class=""><details open=""><summary>🎯Week 2 — Targeted Goals</summary></details></h3><div class="indented"><pre id="68c3fbbd-8374-4775-a5fc-3a5b1ee04671" class="code code-wrap"><code>
+# Week 2: Frontend Development (React or Angular)
+
+## Day 1: Design Application UI/UX
+- Create wireframes or mockups for the application
+- Review and refine the UI/UX design
+- Define color schemes, typography, and other design elements
+
+## Day 2: Set Up Project Structure and Basic Components
+- Create the project structure for the chosen frontend framework
+- Implement basic components (e.g., header, footer, navigation)
+- Set up routing and navigation
+
+## Day 3: Implement Login and Registration Components
+- Design the login and registration forms
+- Implement frontend form validation
+- Connect login and registration components with the user authentication provider
+
+## Day 4: Implement Dashboard Component
+- Design the dashboard layout
+- Implement data visualization components (e.g., charts, tables)
+- Display relevant employee and training data on the dashboard
+
+## Day 5: Implement Employee Management Components
+- Design and implement the employee list view
+- Design and implement the employee details view
+- Implement CRUD operations for employee data
+
+## Day 6: Implement Training Management Components
+- Design and implement the training list view
+- Design and implement the training details view
+- Implement CRUD operations for training data
+
+## Day 7: Review and Testing
+- Review the implemented frontend components
+- Perform basic functionality testing
+- Identify and fix any issues or bugs
+- Prepare for Week 3 (backend development)</code></pre></div><p id="e05bb840-b654-4270-9d50-6c3591d7e256" class="">This detailed breakdown of Week 2 should help you better understand the tasks and milestones for each day. Adjust the timeline as needed based on your team&#x27;s capacity and resources. Follow a similar approach to create detailed plans for the remaining weeks in the development timeline.</p><hr id="19b31815-d1af-4776-92d0-b5d9486740ae"/><figure id="cbc46616-e22d-44f1-bca7-46e4ab1099cc" class="image"><a href="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"><img src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"/></a></figure><p id="d6716e4a-9ade-4137-8fcc-074b95617c39" class="">While there may not be a specific template design that matches your exact project requirements, you can use a combination of popular frontend UI component libraries and admin dashboard templates as a starting point. These resources can help you accelerate the development process and provide a consistent design system.</p><hr id="89b8dd14-e284-46bf-9184-bd5a09ee169a"/><h1 id="cfa0f582-ebc8-47a9-9687-32d67038ff6d" class="">📚Development Resources</h1><h3 id="a6600a48-74b0-498d-a10d-2764a576c0ff" class=""><details open=""><summary>📖 Here are some popular libraries and templates you can use:</summary></details></h3><div class="indented"><ol type="1" id="2a73e4a2-608a-4042-a681-5106d113f5e4" class="numbered-list" start="1"><li>Material-UI (React): <a href="https://material-ui.com/"><strong>https://material-ui.com/</strong></a>
+Material-UI is a popular React UI framework that provides a set of components and styles based on Google&#x27;s Material Design guidelines. It offers various pre-built components, such as buttons, forms, navigation, and more, which can be easily customized to fit your project&#x27;s design requirements.</li></ol><ol type="1" id="acf8bc4a-d18d-4150-96e7-fc0def1ed6f7" class="numbered-list" start="2"><li>Angular Material (Angular): <a href="https://material.angular.io/"><strong>https://material.angular.io/</strong></a>
+Angular Material is the Angular counterpart of Material-UI, providing Material Design components for Angular applications. It offers a similar set of pre-built components and styles that can be customized to match your project&#x27;s design.</li></ol><ol type="1" id="61da1967-0247-4d7d-8297-2bd68888ebee" class="numbered-list" start="3"><li>CoreUI: <a href="https://coreui.io/"><strong>https://coreui.io/</strong></a>
+CoreUI is a free and open-source admin dashboard template that can be used with various frontend frameworks, including React, Angular, and Vue.js. It comes with various pre-built components, layouts, and styles that can be customized to fit your project&#x27;s needs.</li></ol><ol type="1" id="6f106354-f8a5-4b6e-abb8-f277d528c15d" class="numbered-list" start="4"><li>AdminLTE: <a href="https://adminlte.io/"><strong>https://adminlte.io/</strong></a>
+AdminLTE is another popular, free, and open-source admin dashboard template that can be used with various frontend frameworks. It provides a set of pre-built components, layouts, and styles based on the Bootstrap framework.</li></ol><p id="aa97d832-0f02-429f-9ef0-343c97673266" class="">Using one of these libraries or templates as a starting point, you can create a custom design for your Boars Head Deli Distributions training records application. Keep in mind that you may need to modify or extend the provided components to fit your specific project requirements.</p><figure id="d06ed9e3-b7b7-4e29-bb44-126e753abbcd" class="image"><a href="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"><img src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"/></a></figure><p id="38981831-87f0-4475-846e-781da43bca64" class="">Make tables for developer planning and organizing and sort resource urls in order they’ll be needed</p><p id="2a80ca37-952b-428d-8381-bc1264f14fcc" class="">Here&#x27;s a table for planning and organizing the project, along with a list of resource URLs sorted in the order they will be needed.</p><p id="c3b53309-7430-4ce6-b765-fb4b8654da8e" class="">
+</p></div><h3 id="3f0d4ce8-8fa5-4dac-b9fb-f66512b969f3" class=""><details open=""><summary>📙 Resources by<strong> Timeline</strong></summary></details></h3><div class="indented"><table id="1307c7ce-a066-4b24-a6d0-1c3e4d91bd87" class="simple-table"><tbody><tr id="34dc58a5-c71a-405d-80d4-f5316607b8eb"><td id="N~lS" class=""><strong>Week</strong></td><td id="Pw&lt;}" class=""><strong>Task</strong></td><td id="S&gt;FE" class=""><strong>Resources</strong></td></tr><tr id="26bfc2f3-8955-4fb1-aef7-660c535175d6"><td id="N~lS" class="">1</td><td id="Pw&lt;}" class="">Project setup and planning</td><td id="S&gt;FE" class=""><a href="https://nodejs.org/"><strong>Node.js</strong></a>, <a href="https://www.npmjs.com/"><strong>npm</strong></a>, <a href="https://reactjs.org/"><strong>React</strong></a>, <a href="https://angular.io/"><strong>Angular</strong></a>, <a href="https://expressjs.com/"><strong>Express</strong></a>, <a href="https://code.visualstudio.com/"><strong>Visual Studio Code</strong></a></td></tr><tr id="709cef14-513d-4a6f-8f00-dbf3aae7fb7f"><td id="N~lS" class="">2</td><td id="Pw&lt;}" class="">Frontend development</td><td id="S&gt;FE" class=""><a href="https://material-ui.com/"><strong>Material-UI (React)</strong></a>, <a href="https://material.angular.io/"><strong>Angular Material (Angular)</strong></a>, <a href="https://coreui.io/"><strong>CoreUI</strong></a>, <a href="https://adminlte.io/"><strong>AdminLTE</strong></a></td></tr><tr id="dcc956f4-a8c2-4f85-85fe-68be6597d9b1"><td id="N~lS" class="">3</td><td id="Pw&lt;}" class="">Backend development</td><td id="S&gt;FE" class=""><a href="https://nodejs.org/"><strong>Node.js</strong></a>, <a href="https://expressjs.com/"><strong>Express</strong></a>, <a href="https://www.mongodb.com/"><strong>MongoDB</strong></a>, <a href="https://www.postgresql.org/"><strong>PostgreSQL</strong></a></td></tr><tr id="a2835ff7-0864-4e4a-a4f4-862245a48fc6"><td id="N~lS" class="">4</td><td id="Pw&lt;}" class="">User authentication</td><td id="S&gt;FE" class=""><a href="https://firebase.google.com/docs/auth"><strong>Firebase Authentication</strong></a>, <a href="https://auth0.com/"><strong>Auth0</strong></a></td></tr><tr id="31c23084-c26b-44a4-9cc2-fdaec534c5e8"><td id="N~lS" class="">5</td><td id="Pw&lt;}" class="">Testing and bug fixing</td><td id="S&gt;FE" class=""><a href="https://jestjs.io/"><strong>Jest (React)</strong></a>, <a href="https://karma-runner.github.io/latest/index.html"><strong>Karma (Angular)</strong></a>, <a href="https://mochajs.org/"><strong>Mocha (Node.js)</strong></a>, <a href="https://www.postman.com/"><strong>Postman</strong></a></td></tr><tr id="b0b24900-92bd-463e-a3bc-2a96beb390d6"><td id="N~lS" class="">6</td><td id="Pw&lt;}" class="">Deployment</td><td id="S&gt;FE" class=""><a href="https://aws.amazon.com/"><strong>AWS</strong></a>, <a href="https://cloud.google.com/"><strong>Google Cloud Platform</strong></a>, <a href="https://www.heroku.com/"><strong>Heroku</strong></a></td></tr><tr id="9455e7cc-e787-42af-bcaa-528c65cdcc87"><td id="N~lS" class="">7</td><td id="Pw&lt;}" class="">Documentation and final touches</td><td id="S&gt;FE" class=""><a href="https://daringfireball.net/projects/markdown/"><strong>Markdown</strong></a>, <a href="https://jsdoc.app/"><strong>JSDoc</strong></a>, <a href="https://sass-lang.com/"><strong>Sass</strong></a></td></tr><tr id="f9dd5e3c-50f9-4e79-9a03-76c892aaec7c"><td id="N~lS" class="">8</td><td id="Pw&lt;}" class="">Launch and post-launch support</td><td id="S&gt;FE" class=""><a href="https://analytics.google.com/"><strong>Google Analytics</strong></a>, <a href="https://sentry.io/"><strong>Sentry</strong></a></td></tr></tbody></table></div><h3 id="8ad501a2-0e0f-4f42-b410-3a72911ad892" class=""><details open=""><summary>📗<strong>Resource URLs (Reference)</strong></summary></details></h3><div class="indented"><ol type="1" id="1796728d-723b-4ae2-9d35-4cfc62994dff" class="numbered-list" start="1"><li>Node.js: <a href="https://nodejs.org/"><strong>https://nodejs.org/</strong></a></li></ol><ol type="1" id="56146a5a-e116-4a93-a5e3-ab3573e2ad7f" class="numbered-list" start="2"><li>npm: <a href="https://www.npmjs.com/"><strong>https://www.npmjs.com/</strong></a></li></ol><ol type="1" id="ac60f5b2-4b80-4b78-b4a0-c711996f2824" class="numbered-list" start="3"><li>React: <a href="https://reactjs.org/"><strong>https://reactjs.org/</strong></a></li></ol><ol type="1" id="6eee4feb-e209-42ef-b844-915fd33a573c" class="numbered-list" start="4"><li>Angular: <a href="https://angular.io/"><strong>https://angular.io/</strong></a></li></ol><ol type="1" id="cf8a784d-6e3f-4029-a419-da1783dd6f97" class="numbered-list" start="5"><li>Express: <a href="https://expressjs.com/"><strong>https://expressjs.com/</strong></a></li></ol><ol type="1" id="4c80a459-7959-44a8-9aa3-774a841716f3" class="numbered-list" start="6"><li>Visual Studio Code: <a href="https://code.visualstudio.com/"><strong>https://code.visualstudio.com/</strong></a></li></ol><ol type="1" id="0f458b31-331f-468f-bdde-4ce703666ad0" class="numbered-list" start="7"><li>Material-UI (React): <a href="https://material-ui.com/"><strong>https://material-ui.com/</strong></a></li></ol><ol type="1" id="1649d1d6-a15f-4e04-9440-e04b975a4366" class="numbered-list" start="8"><li>Angular Material (Angular): <a href="https://material.angular.io/"><strong>https://material.angular.io/</strong></a></li></ol><ol type="1" id="30d59a15-c567-4453-95e5-80a1eb7ff6fd" class="numbered-list" start="9"><li>CoreUI: <a href="https://coreui.io/"><strong>https://coreui.io/</strong></a></li></ol><ol type="1" id="4f951193-e80e-49c9-a03f-81f419c9d8fc" class="numbered-list" start="10"><li>AdminLTE: <a href="https://adminlte.io/"><strong>https://adminlte.io/</strong></a></li></ol><ol type="1" id="2587377e-61e0-4704-aa6e-d079278ed4ee" class="numbered-list" start="11"><li>MongoDB: <a href="https://www.mongodb.com/"><strong>https://www.mongodb.com/</strong></a></li></ol><ol type="1" id="ad166dbb-1e6b-460a-abab-5dd9796c7138" class="numbered-list" start="12"><li>PostgreSQL: <a href="https://www.postgresql.org/"><strong>https://www.postgresql.org/</strong></a></li></ol><ol type="1" id="1b5565a1-918b-4911-aa04-086386fe6a49" class="numbered-list" start="13"><li>Firebase Authentication: <a href="https://firebase.google.com/docs/auth"><strong>https://firebase.google.com/docs/auth</strong></a></li></ol><ol type="1" id="8552a934-4687-4924-a168-e6328146f05b" class="numbered-list" start="14"><li>Auth0: <a href="https://auth0.com/"><strong>https://auth0.com/</strong></a></li></ol><ol type="1" id="eeb16448-976a-484f-b581-f95be002d9ea" class="numbered-list" start="15"><li>Jest (React): <a href="https://jestjs.io/"><strong>https://jestjs.io/</strong></a></li></ol><ol type="1" id="18044d50-b1e7-40fb-a90c-5be684b7de7c" class="numbered-list" start="16"><li>Karma (Angular): <a href="https://karma-runner.github.io/latest/index.html"><strong>https://karma-runner.github.io/latest/index.html</strong></a></li></ol><ol type="1" id="9c32553a-bb3c-421f-92b2-01cc4e3fa669" class="numbered-list" start="17"><li>Mocha (Node.js): <a href="https://mochajs.org/"><strong>https://mochajs.org/</strong></a></li></ol><ol type="1" id="fc43ae2c-6612-4007-a4d3-c5386232dd37" class="numbered-list" start="18"><li>Postman: <a href="https://www.postman.com/"><strong>https://www.postman.com/</strong></a></li></ol><ol type="1" id="1929b905-dd11-437c-a831-0aec4c0ab27e" class="numbered-list" start="19"><li>AWS: <a href="https://aws.amazon.com/"><strong>https://aws.amazon.com/</strong></a></li></ol><ol type="1" id="9e3b9396-00a2-4369-92aa-d1f7d03435ec" class="numbered-list" start="20"><li>Google Cloud Platform: <a href="https://cloud.google.com/"><strong>https://cloud.google.com/</strong></a></li></ol><ol type="1" id="fcc291b8-523a-4ff2-a2b7-e1730ea6304b" class="numbered-list" start="21"><li>Heroku: <a href="https://www.heroku.com/"><strong>https://www.heroku.com/</strong></a></li></ol><ol type="1" id="753b33cc-2f5b-43cf-8cf4-e8190b369f34" class="numbered-list" start="22"><li>Markdown: <a href="https://daringfireball.net/projects/markdown/"><strong>https://daringfireball.net/projects/markdown/</strong></a></li></ol><ol type="1" id="6ef6b626-5fec-4cc1-8632-991f370d0592" class="numbered-list" start="23"><li>JSDoc: <a href="https://jsdoc.app/"><strong>https://jsdoc.app/</strong></a></li></ol><ol type="1" id="4b02bd8c-edd4-43ce-ba4c-f3ac40135f31" class="numbered-list" start="24"><li>Sass: <a href="https://sass-lang.com/"><strong>https://sass-lang.com/</strong></a></li></ol><ol type="1" id="0443438a-b5bf-4b24-a0c1-4cdca4b39a6f" class="numbered-list" start="25"><li>Google Analytics: <a href="https://analytics.google.com/"><strong>https://analytics.google.com/</strong></a></li></ol><ol type="1" id="8c68d432-4988-467f-85c9-6de1fc1692b3" class="numbered-list" start="26"><li>Sentry: <a href="https://sentry.io/"><strong>https://sentry.io/</strong></a></li></ol></div><hr id="5d22a4db-ccdc-4c7f-a40b-dd8dcad23ae6"/><h1 id="fbe37999-edbb-4a1e-8809-af6a5f893f1e" class="">✅Task list for developers broken down by role… </h1><figure id="fd2af806-45d2-4b8b-b1bd-2d6a70867b7c" class="image"><a href="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"><img src="data:image/svg+xml,%3csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20version=%271.1%27%20width=%2730%27%20height=%2730%27/%3e"/></a></figure><p id="e13ed5e9-f41e-424d-880e-a3aef7d4dce1" class="">…which can be further divided into smaller tasks based on your project&#x27;s requirements and team structure.</p><figure id="7a037833-89fe-4dc0-a102-7c70f9236bab" class="link-to-page"><a href="https://www.notion.so/Frontend-Developer-Tasks-7a03783389fe4dc0a1027c70f9236bab">☑️Frontend Developer Tasks</a></figure><figure id="683819cf-8c9e-4f5c-a8e0-6e6edf1c1070" class="link-to-page"><a href="https://www.notion.so/Backend-Developer-Tasks-683819cf8c9e4f5ca8e06e6edf1c1070">☑️Backend Developer Tasks</a></figure><figure id="d5b7c691-6653-4929-83f4-b7f4a4756a99" class="link-to-page"><a href="https://www.notion.so/Full-stack-Developer-Tasks-if-applicable-d5b7c6916653492983f4b7f4a4756a99">☑️Full-stack Developer Tasks (if applicable)</a></figure><figure id="20be1603-f7aa-40c8-97a3-7aa22383f412" class="link-to-page"><a href="https://www.notion.so/DevOps-and-Deployment-Tasks-20be1603f7aa40c897a37aa22383f412">☑️DevOps and Deployment Tasks</a></figure><figure id="31e70d80-4fd9-450d-a5e4-5be073a5c6ee" class="link-to-page"><a href="https://www.notion.so/Quality-Assurance-and-Testing-Tasks-31e70d804fd9450da5e45be073a5c6ee">☑️Quality Assurance and Testing Tasks</a></figure></div></article></body></html>
